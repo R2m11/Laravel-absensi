@@ -1,0 +1,13 @@
+body{
+    background-image: url('{{ asset("img/bg-01.jpg") }}');
+    background-size: cover;
+}
+.card {
+    margin-top: 50px;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
