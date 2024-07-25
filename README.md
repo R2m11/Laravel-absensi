@@ -67,3 +67,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 # Laravel_Absensi
 # Laravel_Absensi
 # Laravel_Absensi
+# Aplikasi-absen-gaji-dan-lemburan
