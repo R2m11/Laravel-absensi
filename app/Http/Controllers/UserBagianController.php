@@ -81,15 +81,27 @@ class UserBagianController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $iduser = Auth::id();
+        $user_level = Auth::user()->position_id;
+        $profile = Profile::where('users_id',$iduser)->first();
+        $user_position = Position::where('id',$user_level)->first();
+        $bagian = Bagian::all();
+        $userbagian = UserBagian::find($id);
+
+        return view('proyek.userbagian.edit',compact('profile','user_position','bagian','userbagian'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, UserBagian $userbagian)
     {
-        //
+        $request->validate([
+            'nama_user_bagian' => 'required'
+        ]);
+        $userbagian->update($request->all());
+        Alert::success('Berhasil','Berhasil Mengedit Data User Bagian');
+        return redirect('proyek');
     }
 
     /**

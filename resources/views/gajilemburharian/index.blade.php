@@ -49,6 +49,7 @@
                             <td class="rupiah">{{ $result->lembur_perjam }}</td>
 @if (Auth::user()->position->position_name == "Administrator")
                             <td>
+                                <a href="/gajiharian/{{$result->id}}/edit" class="btn-sm btn-info px-3 py-2" style="text-decoration: none;color:white">Edit</a>
                                 <form action="{{ route('gajiharian.destroy', $result->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -98,6 +99,7 @@
                             <td>{{ $result->lemburan }} Jam</td>
 @if (Auth::user()->position->position_name == "Administrator")
                             <td>
+                                <a href="/lemburharian/{{$result->id}}/edit" class="btn-sm btn-info px-3 py-2" style="text-decoration: none;color:white">Edit</a>
                                 <form action="{{ route('lemburharian.destroy', $result->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')

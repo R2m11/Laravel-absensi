@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header text-center"><h2>Log In</h2></div>
                 <div class="card-body">
-                    <img src="{{ asset('img/yutaka logo.jpg')}}" alt="Logo" width="200" height="200" class="logo">
+                    <img src="{{ asset('img/yutaka logo.jpg')}}" alt="Logo" width="200" height="200" class="logo" >
                     <h4 class="text-center">Selamat Datang di Halaman Login</h4><br>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

@@ -56,15 +56,28 @@ class LemburHarianController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $iduser = Auth::id();
+        $user_level = Auth::user()->position_id;
+        $profile = Profile::where('users_id',$iduser)->first();
+        $user_position = Position::where('id',$user_level)->first();
+        $lemburharian = LemburHarian::find($id);
+
+        return view('gajilemburharian.lemburharian.edit',compact('profile','user_position','lemburharian'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, LemburHarian $lemburHarian)
     {
-        //
+        $request->validate([
+            'desc_lemburan' =>'required',
+            'lemburan' => 'required'
+        ]);
+
+        $lemburHarian->update($request->all());
+        Alert::success('Berhasil','Berhasil Mengubah Data Lembur');
+        return redirect('gajilemburharian');
     }
 
     /**

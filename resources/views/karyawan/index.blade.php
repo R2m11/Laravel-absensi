@@ -8,6 +8,24 @@
     @include('part.sidebar')
 @endsection
 
+@push('styles')
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/v/bs4/dt-1.12.1/date-1.1.2/fc-4.1.0/r-2.3.0/sc-2.0.7/datatables.min.css" />
+@endpush
+
+@push('scripts')
+    <script src="{{ '/template/vendor/datatables/jquery.dataTables.min.js' }}"></script>
+    <script src="{{ '/template/vendor/datatables/dataTables.bootstrap4.min.js' }}"></script>
+
+    <!-- Page level custom scripts -->
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable(); // ID From dataTable
+            $('#dataTableHover').DataTable(); // ID From dataTable with Hover
+        });
+    </script>
+@endpush
+
 @section('content')
 <h1 class="text-primary font-weight-bold m-4">Daftar Pegawai</h1>
 @if (Auth::user()->position->position_name == "Administrator")

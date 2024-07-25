@@ -57,16 +57,16 @@ class AbsenKaryawanController extends Controller
         $userbagian = UserBagian::all();
         $absenkaryawan = AbsenKaryawan::all();
         $p = AbsenKaryawan::where('users_id', $iduser)
-        ->where('absensi_id', $absensi->first()->id)
+        ->where('absensi_id', $absensi->last())
         ->first();
 
-        if($absensi == null){
-            Alert::warning('Oops', 'Absen Belum ada');
-            return redirect('/home');
-        }elseif ($p) {
-            Alert::warning('Oops', 'Anda sudah berhasil melakukan Absen Masuk untuk hari ini');
-            return redirect('/home');
-        }
+        // if($absensi == null){
+        //     Alert::warning('Oops', 'Absen Belum ada');
+        //     return redirect('/home');
+        // }elseif (!$p) {
+        //     Alert::warning('Oops', 'Anda sudah berhasil melakukan Absen Masuk untuk hari ini');
+        //     return redirect('/home');
+        // }
 
         return view('absenkaryawan.create',compact('profile','user_position','time_local','time_now','date_now','absensi','bagian','userbagian','p'));
     }
@@ -144,16 +144,16 @@ class AbsenKaryawanController extends Controller
         $absensi = Absensi::where('tanggal_absensi', $date_now)->first('jam_keluar');
         $absenkaryawan = AbsenKaryawan::find($id);
 
-        // if (!$absenkaryawan) {
-        //     return redirect()->back()->with('error', 'Data absenkaryawan tidak ditemukan.');
-        // }elseif ($absensi->jam_keluar > $time_now){
-        //     Alert::warning('Oops', 'Absen Keluar Tidak Tersedia Saat Ini');
-        //     return redirect('/home');
-        // }
-        // elseif ($absenkaryawan->absen_keluar != null) {
-        //     Alert::warning('Oops', 'Anda Telah Mengisi Absen Keluar Untuk Hari Ini');
-        //     return redirect('/home');
-        // }
+        if (!$absenkaryawan) {
+            return redirect()->back()->with('error', 'Data absenkaryawan tidak ditemukan.');
+        }elseif ($absensi->jam_keluar < $time_now){
+            Alert::warning('Oops', 'Absen Keluar Tidak Tersedia Saat Ini');
+            return redirect('/home');
+        }
+        elseif ($absenkaryawan->absen_keluar != null) {
+            Alert::warning('Oops', 'Anda Telah Mengisi Absen Keluar Untuk Hari Ini');
+            return redirect('/home');
+        }
 
         return view('absenkaryawan.edit', compact('profile', 'user_position', 'time_now', 'absensi', 'absenkaryawan'));
     }

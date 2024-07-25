@@ -60,15 +60,24 @@ class PerusahaanController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $iduser = Auth::id();
+        $user_level = Auth::user()->position_id;
+        $profile = Profile::where('users_id',$iduser)->first();
+        $user_position = Position::where('id',$user_level)->first();
+        $perusahaan = Perusahaan::find($id);
+        return view('proyek.perusahaan.edit',compact('profile','user_position','perusahaan'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Perusahaan $perusahaan)
     {
-        //
+        $request->validate([
+            'nama_perusahaan' => 'required'
+        ]);
+        $perusahaan->update($request->all());
+        return redirect('proyek');
     }
 
     /**

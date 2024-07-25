@@ -82,15 +82,29 @@ class BagianController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $iduser = Auth::id();
+        $user_level = Auth::user()->position_id;
+        $profile = Profile::where('users_id',$iduser)->first();
+        $user_position = Position::where('id',$user_level)->first();
+        $bagian = Bagian::find($id);
+        $perusahaan = Perusahaan::all();
+
+        return view('proyek.bagian.edit',compact('profile','user_position','bagian','perusahaan'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Bagian $bagian)
     {
-        //
+        $request->validate([
+            'nama_bagian'=>'required',
+            'tagihan_harian'=>'required',
+        ]);
+        $bagian->update($request->all());
+
+        Alert::success('Berhasil','Berhasil Mengedit Bagian Gedung');
+        return redirect('proyek');
     }
 
     /**

@@ -1,9 +1,30 @@
 @extends('layouts.master')
 
 @section('navbar')
-@include('part.navbar')
-@include('part.sidebar')
+    @include('part.navbar')
+@endsection
 
+@section('sidebar')
+    @include('part.sidebar')
+@endsection
+
+@push('styles')
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/v/bs4/dt-1.12.1/date-1.1.2/fc-4.1.0/r-2.3.0/sc-2.0.7/datatables.min.css" />
+@endpush
+
+@push('scripts')
+    <script src="{{ '/template/vendor/datatables/jquery.dataTables.min.js' }}"></script>
+    <script src="{{ '/template/vendor/datatables/dataTables.bootstrap4.min.js' }}"></script>
+
+    <!-- Page level custom scripts -->
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable(); // ID From dataTable
+            $('#dataTableHover').DataTable(); // ID From dataTable with Hover
+        });
+    </script>
+@endpush
 @section('content')
 @if (Auth::user()->position->position_name == "HR")
 <div class="card-body text-center">
@@ -155,7 +176,7 @@
 <div class="card mx-4 my-4 px-2"><br>
     <h1 class="text-primary text-center">Check Kehadiran</h1><br>
     <div class="table-responsive p-3">
-        <table class="table table-flush table-hover"  data-bs-searching="true">
+        <table class="table table-flush table-hover"  data-bs-searching="true" id="dataTable">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Tanggal</th>
@@ -211,25 +232,6 @@
 @if (Auth::user()->position->position_name == "Karyawan")
 <div class="card-body text-center">
     <div class="row justify-content-center">
-        <div class="col-sm-6 col-md-3">
-            <div class="card card-stats card-round">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-icon">
-                            <div class="icon-big text-center icon-primary bubble-shadow-small">
-                                <i class="fa-solid fa-wallet"></i>
-                            </div>
-                        </div>
-                        <div class="col col-stats ml-3 ml-sm-0">
-                            <div class="numbers">
-                                <p class="card-category">Total Gaji</p>
-                                <h4 class="card-title"> ini total Gaji</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="col-sm-6 col-md-3">
             <div class="card card-stats card-round">
                 <div class="card-body">
